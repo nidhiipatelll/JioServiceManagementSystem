@@ -1,0 +1,137 @@
+{% extends "Agent/AgentHeader.html" %}
+
+{% block title %}home{% endblock %}
+{% block body %}
+{% block content %}
+<div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <header class="panel-heading tab-bg-info">
+                <ul class="nav nav-tabs">
+                  <li>
+                    <a data-toggle="tab" href="#profile">
+                                          <i class="icon-user"></i>
+                                          Profile
+                                      </a>
+                  </li>
+                  <li class="">
+                    <a data-toggle="tab" href="#edit-profile">
+                                          <i class="icon-envelope"></i>
+                                          Edit Profile
+                                      </a>
+                  </li>
+                </ul>
+              </header>
+              <div class="panel-body">
+                <div class="tab-content">
+                  <!-- profile -->
+                  <div id="profile" class="tab-pane">
+                    <section class="panel">
+
+                      <div class="panel-body bio-graph-info">
+                        <h1>My Profile Details</h1>
+                        {% for item in agent_data %}
+                        <div class="row">
+                          <div class="bio-row">
+                            <p><span>Full Name </span>: {{item.userName}}</p>
+                          </div>
+                          <div class="bio-row">
+                            <p><span>Email </span>: {{item.userEmail}}</p>
+                          </div>
+                          <div class="bio-row">
+                            <p><span>Contact No: </span>: {{item.userContactNo}}</p>
+                          </div>
+                          <div class="bio-row">
+                            <p><span>Address </span>:{{item.userAddress}}</p>
+                          </div>
+						  <div class="bio-row">
+                            <p><span>Gender </span>: {{item.userGender}}</p>
+                          </div>
+						  <div class="bio-row">
+                            <p><span>City </span>: {{item.userCity}}</p>
+                          </div>
+						  <div class="bio-row">
+                            <p><span>Type </span>: {{item.userType}}</p>
+                          </div>
+						  <div class="bio-row">
+                            <p><span>Profile Creation Date </span>: {{item.userCreationDate}}</p>
+                          </div>
+						  <div class="bio-row">
+                            <p><span>Profile Status </span>: {{item.userStatus}}</p>
+                          </div>
+                        </div>
+                       {% endfor %}
+                      </div>
+                    </section>
+                    <section>
+                      <div class="row">
+                      </div>
+                    </section>
+                  </div>
+                  <!-- edit-profile -->
+                  <div id="edit-profile" class="tab-pane">
+                    <section class="panel">
+                      <div class="panel-body bio-graph-info">
+                        {% for item in agent_data %}
+                        <form class="form-horizontal" action="agentprofile" method="post" role="form">{% csrf_token %}
+                          <div class="form-group ">
+                            <label for="fullname" class="control-label col-lg-2">Full name <span class="required">*</span></label>
+                            <div class="col-lg-10">
+                              <input class=" form-control" id="fullname" name="txtUserName" placeholder="{{item.userName}}" type="text" />
+                            </div>
+                          </div>
+                          <div class="form-group ">
+                            <label for="email" class="control-label col-lg-2">Email <span class="required">*</span></label>
+                            <div class="col-lg-10">
+                              <input class="form-control " id="email" name="txtUserEmail" type="email" placeholder="{{item.userEmail}}"/>
+                            </div>
+                          </div>
+                          <div class="form-group ">
+                            <label for="gender" class="control-label col-lg-2">Gender<span class="required">*</span></label>
+                            <div class="col-lg-5">
+                              {% if item.userGender == "Male" %}
+                              <input id="gender" name="rbtUserGender" type="radio" value="Male" checked/>Male
+                              <input id="gender" name="rbtUserGender" type="radio" value="Female"/>Female
+                              {% else %}
+                              <input id="gender" name="rbtUserGender" type="radio" value="Male" />Male
+                              <input id="gender" name="rbtUserGender" type="radio" value="Female" checked/>Female
+                              {% endif %}
+                          </div>
+                        </div>
+                        <div class="form-group ">
+                          <label for="contactno" class="control-label col-lg-2">Contact No <span class="required">*</span></label>
+                          <div class="col-lg-10">
+                            <input placeholder="{{item.userContactNo}}" class="form-control " id="contactno" name="txtContactNo" type="text" />
+                          </div>
+                        </div>
+                        <div class="form-group ">
+                          <label for="city" class="control-label col-lg-2">City <span class="required">*</span></label>
+                          <div class="col-lg-10">
+                            <input class="form-control " id="city" name="txtUserCity" placeholder="{{item.userCity}}" type="text" />
+                          </div>
+                        </div>
+                        <div class="form-group ">
+                          <label for="Address" class="control-label col-lg-2">Address <span class="required">*</span></label>
+                          <div class="col-lg-10">
+                            <textarea id="Address"  placeholder="{{item.userAddress}}" name="txtUserAddress" class="form-control" rows="5"></textarea>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="col-lg-offset-2 col-lg-10">
+                            <button class="btn btn-primary" name="btnupdate" value="update" type="submit">Update</button>
+                            <button class="btn btn-default" name="btndelete" value="delete" type="reset">Reset</button>
+                          </div>
+                        </div>
+                        </form>
+                        {% endfor %}
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,1 @@
+web: gunicorn ServiceProvider1.wsgi
